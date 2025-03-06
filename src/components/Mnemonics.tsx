@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { generateMnemonic, validateMnemonic } from "bip39";
+import { generateMnemonic, mnemonicToSeed, validateMnemonic } from "bip39";
 import { Accordian } from "./ui/Accordian";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
@@ -7,6 +7,7 @@ import { Button } from "./ui/button";
 // Default step for a new user: Create a Mnemonic
 // Validate a phrase if already exists (user input)
 // store the mnemonic in localstorage
+//generate a seed
 
 export function MnemonicsGeneration(){
     const [mnemonics, setMnemonics] = useState<string[]>(Array(12).fill(""));
@@ -14,6 +15,7 @@ export function MnemonicsGeneration(){
     const [isVisible, setIsVisible] = useState(false);
     const [inputPhrase, setInputPhrase] = useState("");
     const [error, setError] = useState("");
+    const [seed, setSeed] = useState("");
 
     useEffect(()=> {
         const storedMnemonic = localStorage.getItem("Wallet Mnemonic");
@@ -23,23 +25,38 @@ export function MnemonicsGeneration(){
         }
     }, []);
 
-    const handleGenerateMnemonics = () => {
+    const handleGenerateMnemonics = async () => {
         if(inputPhrase.trim()){
             if(validateMnemonic(inputPhrase)){
                 setMnemonics(inputPhrase.split(" "));
                 setError("");
                 localStorage.setItem("Wallet Mnemonic", inputPhrase);
+                const Seed = await mnemonicToSeed(inputPhrase);
+                const seedHex = Seed.toString('hex'); 
+                setSeed(seedHex);
+                localStorage.setItem("Seed", seedHex);
             } else {
                 setError("Incorrect Mnemonic! Please input correct Mnemoinc");
                 return;
             }
         } else {
-            const words = generateMnemonic().split(" ");
-            setMnemonics(words);
-            localStorage.setItem("Wallet Mnemonic", words.join(" "));
+            const newMnemonics = generateMnemonic()
+            setMnemonics(newMnemonics.split(" "));
+            localStorage.setItem("Wallet Mnemonic", newMnemonics);
+            const Seed = await mnemonicToSeed(newMnemonics);
+            const seedHex = Seed.toString('hex'); 
+            setSeed(seedHex);
+            localStorage.setItem("Seed", seedHex);
         }
         setIsVisible(true);
     }
+
+    const deleteWallet = () => {
+        localStorage.removeItem("Wallet Mnemonic");
+        localStorage.removeItem("Seed");
+        setIsVisible(false);
+    }
+
     // UI: Create an accordian which can let you hide and unhide Mnemonic phrase
 
     return (
@@ -57,7 +74,7 @@ export function MnemonicsGeneration(){
             </Accordian>
             <div className="flex justify-end gap-3 m-5 mr-50">
                 <Button variant="secondary" size="sm" text="Add Wallet" />
-                <Button variant="destructive" size="sm" text="Delete Wallet" />
+                <Button onClick={deleteWallet}variant="destructive" size="sm" text="Delete Wallet" />
             </div>
           </div>
           ): <div className='flex justify-center p-5 gap-4 items-center '>
