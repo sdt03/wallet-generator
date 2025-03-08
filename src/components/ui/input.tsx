@@ -1,14 +1,28 @@
-
-interface InputProps{
-    // text: string;
-    size?: "sm" | "md" | "lg"
-    placeholder: string;
-    value: string;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+interface InputProps {
+    size: "sm" | "md" |"lg";
+    value: string[];
+    onChange: (index: number, e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export function Input({ placeholder, value, onChange}: InputProps){
-    return <div className="p-4">
-        <input className = {`text-white border border-gray-500 rounded-md p-2 w-240`} placeholder={placeholder} value={value} onChange={onChange}  />
-    </div>
+const sizeClasses = {
+    "sm": "px-2 py-1 text-sm",
+    "md": "px-3 py-2 text-lg",
+    "lg": "px-4 py-3 text-xl",
+};
+
+export function Input({ size, value, onChange }: InputProps) {
+    const inputArray = Array(12).fill("").map((_, index) => value[index] || "");    
+    return (
+        <div className="grid grid-cols-3 gap-4">
+            {inputArray.map((word, index) => (
+                <input
+                    key={index}
+                    className={`rounded-md bg-black-500 text-white border border-gray-500  ${sizeClasses[size]}`}
+                    value={word}
+                    onChange={(e) => onChange(index, e)}
+                    placeholder={`${index + 1}`}
+                />
+            ))}
+        </div>
+    );
 }
