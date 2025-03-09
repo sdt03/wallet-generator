@@ -11,8 +11,8 @@ interface AccordianProps{
 export function Accordian({title, isOpen, toggleOpen, children}: AccordianProps){
 
     return (
-        <div className="p-4">
-            <div className=" w-250 border border-gray-500 rounded-md mt-5 ml-45 mr-45">
+        <div className="flex justify-center relative top-1/6">
+            <div className=" w-225 border border-gray-500 rounded-md mt-5 ml-45 mr-45">
                 <div className="flex justify-between font-bold p-3 text-2xl">
                     {title}
                     <div

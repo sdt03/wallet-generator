@@ -15,13 +15,13 @@ const buttonVariants = {
     },
     size: {
         sm: "py-2 px-4 text-sm rounded-md",
-        md: "py-4 px-6 text-md rounded-md",
+        md: "py-4 px-6 text-md rounded-md min-w-50",
     }
 }
 
 export function Button({variant, size, text, onClick, loading}: ButtonProps) {
     return <div>
-        <button onClick={onClick} className={`${buttonVariants.variant[variant]} ${buttonVariants.size[size]} cursor-pointer`} disabled={loading}>{text}</button>
+        <button onClick={onClick} className={`${buttonVariants.variant[variant]} ${buttonVariants.size[size]} cursor-pointer font-semibold `} disabled={loading}>{text}</button>
     </div>
 }
 
