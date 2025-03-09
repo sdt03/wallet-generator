@@ -1,3 +1,3 @@
 import ethereum from '../../assets/ethereum.svg';
 
-export const EthereumIcon = () => <img src={ethereum} alt="Ethereum" className="w-16 h-16"/>;
+export const EthereumIcon = () => <img src={ethereum} alt="Ethereum" className="w-14 h-14"/>;

@@ -1,3 +1,3 @@
 import solana from '../../assets/solana.svg';
 
-export const SolanaIcon = () => <img src={solana} alt="Solana" className="w-16 h-16"/>;
+export const SolanaIcon = () => <img src={solana} alt="Solana" className="w-14 h-14"/>;

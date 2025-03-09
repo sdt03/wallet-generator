@@ -8,8 +8,10 @@ import { ethers } from "ethers";
 import HDKey from "hdkey";
 import { derivePath } from "ed25519-hd-key";
 import bs58 from "bs58";
+import { WalletIcon } from "./icons/walletIcon";
+import { Display } from "./WalletDisplay";
 
-interface Wallet{
+export interface Wallet{
     publicKey: string;
     privateKey: string;
     mnemonic: string;
@@ -166,28 +168,29 @@ export function Wallet(){
         }
     }
 
-
-    // UI: Create an accordian which can let you hide and unhide Mnemonic phrase
-
     return (
     <div className='text-white flex flex-col items-center justify-center'>
         {!isRecovering && !isVisible && (
+            
             <div className="w-screen h-screen bg-black-500 gap-4 flex flex-col justify-center p-4 items-center">
-            <h1 className="text-white text-4xl font-bold  absolute top-1/5">Welcome to a CoinSafe</h1>
+                <div className="flex flex-col justify-start">
+                </div>
+            <h1 className="text-white text-4xl font-bold  absolute top-1/5"> Welcome to a पाकीट</h1>
             <p className="text-gray-500 flex justify-center absolute top-1/4 p-6">This is an assignment from the 100xDevs Web3 Cohort</p>
                 <div className="flex flex-col gap-4 justify-center items-center bg-black-500 absolute top-1/2 ">
-                    <div className="text-white">
+                    <div className="text-white ease-in">
                         <Button onClick={handleRecoverWallet} size='md' variant="primary" text="Recover a Wallet" loading={false} />
                     </div>
                     <div>
-                        <Button onClick={handleaddWallet} size='md' variant="secondary" text="Generate Wallet" loading={false} />
+                        <Button onClick={handleWalletGen} size='md' variant="secondary" text="Generate Wallet" loading={false} />
                     </div>
                 </div>
             </div>
         )}  
         <div>
         {isRecovering && !isVisible && (
-            <div className="bg-black w-screen h-screen p-2">
+            <div className="bg-black-500 w-screen h-screen p-2">
+                <WalletIcon size="md" />
                 <h1 className="flex flex-col items-center text-2xl font-bold relative top-1/4">Enter your 12 Words Mnemonics Phrase below</h1>
                 <div className='flex flex-col gap-8 items-center relative top-1/3'>
                 <Input value={inputPhrase.split(" ")} 
@@ -205,21 +208,24 @@ export function Wallet(){
 
         <div className='bg-black text-white'>
           {isVisible && (
-            <div className="w-screen h-screen ">
+            <div className="w-screen h-screen flex flex-col">
+                <WalletIcon size="md" />
                 <Accordian title="Your Secret Key" isOpen={isOpen} toggleOpen={()=>setIsOpen(!isOpen)}>
                     <div className=" grid grid-cols-3 gap-2 w-screen text-white ">
                         {mnemonics.map((word, index) => (
-                            <span key={index} className="px-5 py-5 text-lg rounded-md bg-black-500">
+                            <span key={index} className="px-3 py-3 text-lg rounded-md bg-black-500">
                                 {word}
                             </span>
                         ))}
                     </div>
             </Accordian>
-            <div className="flex justify-end gap-4 m-5 mr-50">
+            <div className="flex justify-end gap-4 relative top-1/5 mr-50 pt-3">
                 <Button onClick={handleaddWallet} variant="secondary" size="sm" text="Add Wallet" />
                 <Button onClick={deleteWallet}variant="destructive" size="sm" text="Delete Wallet" />
             </div>
-            
+            <div className="flex flex-col items-center relative top-1/3">
+                <Display  wallets={wallets}/>
+            </div>
           </div> )}
       </div> 
       </div>
