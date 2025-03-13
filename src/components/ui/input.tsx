@@ -17,7 +17,7 @@ export function Input({ size, value, onChange }: InputProps) {
             {inputArray.map((word, index) => (
                 <input
                     key={index}
-                    className={`rounded-md bg-black-500 text-white border border-gray-500  ${sizeClasses[size]}`}
+                    className={`rounded-md bg-black text-white border border-gray-500  ${sizeClasses[size]}`}
                     value={word}
                     onChange={(e) => onChange(index, e)}
                     placeholder={`${index + 1}`}

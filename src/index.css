@@ -2,6 +2,7 @@
 
 @theme {
     --color-black-500: oklch(19.57% 0 0);
-    --color-black-400: oklch(24.88% 0.0095 276.7)
+    --color-black-400: oklch(26.45% 0 0);
+    --color-black-300: oklch(28.5% 0 0);
     --color-red-500: oklch(37.17% 0.1212 25.86);
 }
