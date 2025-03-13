@@ -5,6 +5,7 @@ interface ButtonProps {
     text: string;
     onClick?: () => void;
     loading? : boolean;
+    disabled?: boolean 
 }
 
 const buttonVariants = {
@@ -19,9 +20,9 @@ const buttonVariants = {
     }
 }
 
-export function Button({variant, size, text, onClick, loading}: ButtonProps) {
+export function Button({variant, size, text, onClick, loading, disabled}: ButtonProps) {
     return <div>
-        <button onClick={onClick} className={`${buttonVariants.variant[variant]} ${buttonVariants.size[size]} cursor-pointer font-semibold`} disabled={loading}>{text}</button>
+        <button onClick={onClick} className={`${buttonVariants.variant[variant]} ${buttonVariants.size[size]} ${disabled ? "cursor-not-allowed" : "cursor-pointer"} font-semibold`} disabled={loading || disabled}>{text}</button>
     </div>
 }
 
