@@ -101,6 +101,29 @@ export function useWallet() {
     setCurrentScreen("recover");
   };
 
+  const handleValidateRecovery = () => {
+    let mnemonics = inputPhrase.trim();
+    if (mnemonics) {
+      if (!validateMnemonic(mnemonics)) {
+        setError("Invalid mnemonics");
+        return;
+      }
+    }
+    const words = mnemonics.split(" ");
+    setMnemonics(words);
+    localStorage.setItem("Mnemonics", mnemonics); 
+
+    const wallet = WalletGeneration(mnemonics);
+
+    if(wallet){
+      const updatedWallets = [...wallets, ...wallet];
+      setWallets(updatedWallets);
+      localStorage.setItem("Wallets", JSON.stringify(updatedWallets));
+      setVisiblePrivKey([...visiblePrivKey, false]);  
+  }
+
+  }
+
   const handleWalletGen = () => {
     setIsRecovering(false);
     let mnemonics = inputPhrase.trim();
@@ -130,5 +153,5 @@ export function useWallet() {
   }
   };
 
-  return { handleRecoverWallet, WalletGeneration, handleWalletGen };
+  return { handleRecoverWallet, WalletGeneration, handleWalletGen, handleValidateRecovery };
 }

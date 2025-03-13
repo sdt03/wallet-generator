@@ -12,6 +12,7 @@ export function Wallet() {
     } = useWalletStore();
 
     const [isOpen, setIsOpen] = useState(false);
+    const [isChecked, setIsChecked] = useState(false);
 
     return(
         <div className="flex flex-col">
@@ -29,8 +30,20 @@ export function Wallet() {
                         ))}
                     </div>
             </Accordian>
+            <div className="flex items-center justify-center mt-4 relative top-1/5">
+                <input 
+                    type="checkbox" 
+                    id="confirm" 
+                    className="mr-2 w-5 h-5" 
+                    checked={isChecked} 
+                    onChange={() => setIsChecked(!isChecked)} 
+                />
+                <label htmlFor="confirm" className="text-sm text-gray-500 cursor-pointer">
+                    I have saved this phrase securely
+                </label>
+            </div>
             <div className="flex justify-center relative top-1/4">
-                <Button size="md" variant="secondary" text="Next" onClick={()=>setIsVisible(!isVisible)}/>
+                <Button size="md" variant="secondary" text="Next" onClick={()=>setIsVisible(!isVisible)} disabled={!isChecked}/>
             </div>
             </div> )}
             {!isVisible && mnemonics && (

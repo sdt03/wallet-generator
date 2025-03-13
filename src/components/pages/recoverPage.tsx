@@ -6,7 +6,7 @@ import { Input } from "../ui/input";
 
 export function RecoverWallet(){
     const { isRecovering, isVisible, inputPhrase, setInputPhrase} = useWalletStore();
-    const { handleWalletGen } =  useWallet();
+    const { handleValidateRecovery } =  useWallet();
 
     const wordsArray = inputPhrase.trim().split(/\s+/);
     const isValidInput = wordsArray.length === 12 && wordsArray.every(word => word.length > 0);
@@ -25,7 +25,7 @@ export function RecoverWallet(){
                             words[index] = e.target.value;
                             setInputPhrase(words.join(" "));
                     }} />
-                    <Button onClick={handleWalletGen} size='md' variant="secondary" text="Validate Wallet" loading={false} disabled={!isValidInput} />
+                    <Button onClick={handleValidateRecovery} size='md' variant="secondary" text="Validate Wallet" loading={false} disabled={!isValidInput} />
                     </div>
                 </div>
             )} 
