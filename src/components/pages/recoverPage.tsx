@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 
 export function RecoverWallet(){
-    const { isRecovering, isVisible, inputPhrase, setInputPhrase, setCurrentScreen } = useWalletStore();
+    const { isRecovering, isVisible, inputPhrase, setInputPhrase} = useWalletStore();
     const { handleWalletGen } =  useWallet();
 
     return(
