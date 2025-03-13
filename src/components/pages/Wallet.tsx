@@ -8,7 +8,7 @@ import { Display } from "../WalletDisplay";
 
 export function Wallet() {
     const {
-        mnemonics, isVisible, setIsVisible, setCurrentScreen, wallets
+        mnemonics, isVisible, setIsVisible
     } = useWalletStore();
 
     const [isOpen, setIsOpen] = useState(false);

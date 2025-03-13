@@ -27,11 +27,9 @@ const DERIVATION_PATHS: DerivationPaths = {
 
 export function useWallet() {
   const { 
-    mnemonics, setMnemonics,
-    seed, setSeed, isVisible,
-    error, setError,
+    setMnemonics, setSeed, setError,
     setIsRecovering, setCurrentScreen,
-    inputPhrase, setInputPhrase, setIsVisible, 
+    inputPhrase,  setIsVisible, 
     setVisiblePrivKey, visiblePrivKey,
     wallets, setWallets
   } = useWalletStore();
