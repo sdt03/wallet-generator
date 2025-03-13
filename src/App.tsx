@@ -1,8 +1,19 @@
-import './App.css'
-import { Wallet } from './components/WalletGenerator'
+import { useEffect } from "react";
+import { IndexPage } from "./components/pages/IndexPage";
+import { RecoverWallet } from "./components/pages/recoverPage";
+import { useWalletStore } from "./components/store/WalletStore";
+import { Wallet } from "./components/pages/Wallet";
 
 function App() {
-    return <Wallet />
-  }
+  const { currentScreen, setIsRecovering, setCurrentScreen, mnemonics } = useWalletStore();
 
-export default App
+  return (
+  <div className="h-screen">
+    {currentScreen === "index" && <IndexPage />}
+    {currentScreen === "recover" && <RecoverWallet />}
+    {currentScreen === "wallet" && <Wallet />}
+  </div> 
+  )
+}
+
+export default App;
