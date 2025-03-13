@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-:root {
+@theme {
     --color-black-500: oklch(19.57% 0 0);
     --color-black-400: oklch(26.45% 0 0);
     --color-black-300: oklch(28.5% 0 0);
